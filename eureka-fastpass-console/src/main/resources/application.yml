@@ -1,0 +1,23 @@
+server:
+  port: 8082
+
+ribbon:
+  euerka:
+    enabled: true
+
+#fastpass-service-local:
+#    ribbon:
+#      MaxAutoRetriesNextServer: 1
+#      listOfServers: http://localhost:50316, http://localhost:50377
+#      MaxAutoRetries: 0
+#      OkToRetryOnAllOperations: false
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+
+fastpass-service:
+  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
