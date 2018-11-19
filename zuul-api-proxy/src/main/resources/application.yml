@@ -1,0 +1,56 @@
+server:
+  port: 8086
+
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: toll-api-proxy
+
+# scenario 1
+#zuul:
+#  routes:
+#    trproxy:
+#      url: http://localhost:54506
+#      path: /tollproxy/**
+
+
+# scenario 2
+#ribbon:
+#  eureka:
+#    enabled: false
+#zuul:
+#  routes:
+#    tollrateproxy:
+#      path: /tollproxy/**
+#      serviceId: myproxy
+#myproxy:
+#  ribbon:
+#    listOfServers: http://localhost:54506
+
+
+# scenario 3
+# no configuration required, just include eureka in pom
+
+
+# scenario 4 - Adds only specified services in proxy, not everything available in eureka
+#zuul:
+#  ignored-services: "*"
+#  routes:
+#    tollrateproxy:
+#      path: /tollproxy/**
+#      serviceId: toll-service
+#  ignored-patterns: /tollproxy/tollrate/1
+
+
+# scenario 5
+zuul:
+  ignored-services: "*"
+  routes:
+    tollrateproxy:
+      path: /tollproxy/**
+      serviceId: toll-service
+  prefix: /api
+  ignored-patterns: /api/tollproxy/tollrate/1
