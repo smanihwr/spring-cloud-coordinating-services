@@ -13,4 +13,15 @@ public class EurekaFastpassServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EurekaFastpassServiceApplication.class, args);
 	}
+
+//    @PreDestroy
+//    public void onExit() {
+//        System.out.println("###STOPing###");
+//        try {
+//            Thread.sleep(5 * 1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("###STOP FROM THE LIFECYCLE###");
+//    }
 }
