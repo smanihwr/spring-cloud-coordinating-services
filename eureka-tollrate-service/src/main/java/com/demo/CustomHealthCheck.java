@@ -13,7 +13,7 @@ public class CustomHealthCheck implements HealthIndicator {
     public Health health() {
         System.out.println("Error code " + errorCode);
 
-        if(errorCode > 3 && errorCode < 6) {
+        if(errorCode > 4 && errorCode < 5) {
             errorCode++;
             return Health.down().withDetail("Custom Error Code ", errorCode).build();
         }

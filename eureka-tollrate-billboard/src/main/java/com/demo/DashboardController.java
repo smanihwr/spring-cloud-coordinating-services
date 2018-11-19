@@ -1,5 +1,6 @@
 package com.demo;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -22,8 +23,9 @@ public class DashboardController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@HystrixCommand(fallbackMethod = "getTollRateFallBack")
 	@GetMapping(value = "/dashboard")
-	public String GetTollRate(@RequestParam int stationId, Model m) {
+	public String getTollRate(@RequestParam int stationId, Model m) {
 		
 //		RestTemplate rest = new RestTemplate();
 //		TollRate tr = rest.getForObject("http://localhost:50110/tollrate/" + stationId, TollRate.class);
@@ -33,4 +35,12 @@ public class DashboardController {
 		m.addAttribute("rate", tr.getCurrentRate());
 		return "dashboard";
 	}
+
+	public String getTollRateFallBack(@RequestParam int stationId, Model m) {
+        System.out.println("getTollRateFallBack called, " + stationId);
+	    //setting default rate
+	    m.addAttribute("rate", "1.00");
+
+	    return "dashboard";
+    }
 }
