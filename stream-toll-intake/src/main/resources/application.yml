@@ -1,0 +1,21 @@
+server:
+  port: 0
+
+spring:
+  rabbitmq:
+    host: docker.me
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: fastpasstoll
+          group: tollProcessingGroup
+          consumer:
+            partitioned: true
+      instance-count: 3
+#      instance-index: 0 # set from cmd line arg.
+#      output:
+#       destination: fastpasstollstatus

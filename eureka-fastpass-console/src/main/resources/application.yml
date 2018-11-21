@@ -5,6 +5,7 @@ ribbon:
   euerka:
     enabled: true
 
+
 #fastpass-service-local:
 #    ribbon:
 #      MaxAutoRetriesNextServer: 1
@@ -21,3 +22,21 @@ fastpass-service:
   ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+spring:
+  rabbitmq:
+    host: docker.me
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      default:
+        contentType: application/json
+      bindings:
+#       output:
+        fastpassTollChannel:
+          destination: fastpasstoll
+          producer:
+            partitionKeyExpression: payload.stationId
+            partitionCount: 3
